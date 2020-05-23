@@ -1,8 +1,20 @@
+class IndexForSiblings {
+  static get(el) {
+    let children = el.parentNode.children;
+
+    for (let i = 0; i < children.length; i++) {
+      let child = children[i];
+      if (child == el) return i;
+    }
+  }
+}
+
 class Slider {
   constructor(selector) {
     this.move = this.move.bind(
       this
     ); /* ya que this se reescribe y cambia en js*/
+    this.moveByButton = this.moveByButton.bind(this);
     this.slider = document.querySelector(selector);
     this.itemsCount = this.slider.querySelectorAll(".container > *").length;
 
@@ -11,10 +23,27 @@ class Slider {
 
     this.start();
     this.buildControls();
+    this.bindEvent();
   }
 
   start() {
     this.interval = window.setInterval(this.move, 3000);
+  }
+
+  bindEvent() {
+    this.slider.querySelectorAll(".controls li").forEach((element) => {
+      element.addEventListener("click", this.moveByButton);
+    });
+  }
+
+  moveByButton(ev) {
+    //evento que paso el eventListener
+    let index = IndexForSiblings.get(ev.currentTarget);
+    this.contador = index;
+    this.moveTo(index);
+
+    if (this.interval) window.clearInterval(this.interval);
+    this.start();
   }
 
   //crear controles dinamicamente
