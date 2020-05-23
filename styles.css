@@ -1,0 +1,22 @@
+.slider {
+  width: 640px;
+  position: relative;
+  overflow: hidden;
+}
+
+.slider .container {
+  white-space: nowrap; /* para alinear sin importar uno al lado de otro si que rompa fila*/
+  position: relative;
+  transition: all 0.3s;
+  left: 0%;
+}
+/*como buena practica, tambien incluir*/
+.slider .container * {
+  white-space: normal; /* para alinear sin importar uno al lado de otro si que rompa fila*/
+}
+.slider img {
+  width: 100%;
+
+  display: inline-block; /*una al lado de la otra*/
+  margin: -2px;
+}
